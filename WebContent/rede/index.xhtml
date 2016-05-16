@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<h:html xmlns="http://www.w3.org/1999/xhtml"	  
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<title>Cadastro de Redes</title>
+</h:head>
+<h:body>
+	<h1>Cadastro de Redes</h1>
+	
+	<h:messages />
+	
+	<h:form>
+		<h:outputLabel value="Nome: " for="nome" />
+		<h:inputText value="#{redeController.rede.nome}" /><br />
+		<h:outputLabel value="Grupo: " for="grupo" />
+		
+		 <h:selectOneMenu value="#{redeController.rede.grupo}" id="grupo" name="grupo">
+			<f:selectItem itemValue="" itemLabel="--Selecione--" noSelectionOption="true" />
+			<f:selectItems value="#{redeController.grupos}" var="grupo" converter="grupoConverter"  itemLabel="#{grupo.nome}" itemValue="#{grupo}"/>
+			<f:converter converterId="grupoConverter" />			
+		</h:selectOneMenu><br />
+		
+		<!--  <h:outputText id="outputText" value="#{redeController.rede.grupo}" />-->
+		<h:commandButton value="Salvar" action="#{redeController.salva(redeController.rede)}" ></h:commandButton>
+	</h:form>
+</h:body>
+</h:html>

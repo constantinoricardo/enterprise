@@ -10,6 +10,10 @@ public class GrupoDAO extends AbstractDAO {
 		return em.createQuery("select g from Grupo g", Grupo.class).getResultList();
 	}
 	
+	public Grupo pegaGrupoPorId(Integer id) {
+		return em.find(Grupo.class, id);
+	}
+	
 	public void inserir(Grupo grupo) {
 		em.getTransaction().begin();
 		em.persist(grupo);

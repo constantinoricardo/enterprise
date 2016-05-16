@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="rede")
 public class Rede {
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType .AUTO)
 	private Integer id;

@@ -1,8 +1,7 @@
 package br.com.constantino.enterprise.main;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import br.com.constantino.enterprise.dao.GrupoDAO;
+import br.com.constantino.enterprise.entities.Grupo;
 
 //
 
@@ -10,10 +9,11 @@ public class Main {
 	
 	public static void main(String args[]) {
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("enterprisedatabase");
-		EntityManager em = emf.createEntityManager();
+		GrupoDAO dao = new GrupoDAO();
 		
-		System.out.println("Tables this database created!!!");
+		Grupo grupo = dao.pegaGrupoPorId(2);
+		
+		System.out.println(String.valueOf(21));
 		
 	}
 
