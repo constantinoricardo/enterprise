@@ -7,13 +7,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.sun.javafx.collections.MappingChange.Map;
-
 import br.com.constantino.enterprise.dao.GrupoDAO;
 import br.com.constantino.enterprise.entities.Grupo;
 
 @FacesConverter(value = "grupoConverter", forClass = Grupo.class)
 public class GrupoConverter implements Converter, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {

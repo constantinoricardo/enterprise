@@ -16,6 +16,11 @@ import br.com.constantino.enterprise.converter.SampleEntity;
 @Table(name="grupo")
 public class Grupo implements Serializable, SampleEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
