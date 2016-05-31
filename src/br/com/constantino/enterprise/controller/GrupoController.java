@@ -5,7 +5,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
-
 import br.com.constantino.enterprise.dao.GrupoDAO;
 import br.com.constantino.enterprise.entities.Grupo;
 import br.com.constantino.enterprise.utils.Messages;
@@ -14,7 +13,7 @@ import br.com.constantino.enterprise.utils.Messages;
 public class GrupoController {
 	
 	private Grupo grupo = new Grupo();	
-	private List<Grupo> grupos;
+	private List<Grupo> grupos;		
 	
 	public List<Grupo> getGrupos() {
 		GrupoDAO dao = new GrupoDAO();

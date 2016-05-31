@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"	  
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Cadastro de Estabelecimentos</title>
+</h:head>
+<h:body>
+
+<h1>Cadastro de Estabelecimentos</h1>
+	
+	<h:messages />
+	
+	<h:form>
+		<h:outputLabel value="CNPJ: " for="cnpj" />
+		<h:inputText value="#{estabelecimentoController.estabelecimento.CNPJ}" size="45" /><br />
+		
+		<h:outputLabel value="Nome Fantasia: " for="nomeFantasia" />
+		<h:inputText value="#{estabelecimentoController.estabelecimento.nomeFantasia}" size="45" /><br />
+		
+		<h:outputLabel value="Razão Social: " for="razaoSocial" />
+		<h:inputText value="#{estabelecimentoController.estabelecimento.razaoSocial}" size="45" /><br />
+		
+		<h:outputLabel value="Rede: " for="rede" />
+		<h:selectOneMenu value="#{estabelecimentoController.estabelecimento.rede}" id="rede" name="rede">
+			<f:selectItem itemValue="" itemLabel="--Selecione--" noSelectionOption="true" />
+			<f:selectItems value="#{estabelecimentoController.redes}" var="rede" itemLabel="#{rede.nome}" itemValue="#{rede}" />
+			<f:converter converterId="redeConverter" />			
+			<f:ajax event="change" render="renderGrupo" listener="#{estabelecimentoController.carregarCombo(estabelecimentoController.estabelecimento)}" />
+		</h:selectOneMenu><br />
+				
+        <h:outputLabel value="Grupo: " for="grupo" />				
+		<h:selectOneMenu value="#{estabelecimentoController.estabelecimento.grupo}" id="renderGrupo" name="grupo">
+			<f:selectItem itemValue="" itemLabel="--Selecione--" noSelectionOption="true" />
+			<f:selectItems value="#{estabelecimentoController.grupos}" var="grupo"  itemLabel="#{grupo.nome}" itemValue="#{grupo}"/>
+			<f:converter converterId="grupoConverter" />			
+		</h:selectOneMenu><br /> 				
+	
+		<h:commandButton value="Salvar" action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}" ></h:commandButton>
+	</h:form>
+
+</h:body>
+</h:html>

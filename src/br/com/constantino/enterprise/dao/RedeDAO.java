@@ -2,6 +2,8 @@ package br.com.constantino.enterprise.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import br.com.constantino.enterprise.entities.Rede;
 
 public class RedeDAO extends AbstractDAO {
@@ -12,7 +14,13 @@ public class RedeDAO extends AbstractDAO {
 		em.getTransaction().commit();
 	}
 	
-	public List<Rede> buscarPeloCodigo(Integer id) {
-		return em.createQuery("select r from Rede r", Rede.class).getResultList();
+	public List<Rede> getRedes() {
+		String jpql = "select r from Rede r";
+		Query query = em.createQuery(jpql, Rede.class);
+		return query.getResultList();
+	}
+	
+	public Rede buscarPeloCodigo(Integer id) {
+		return em.find(Rede.class, id);
 	}
 }

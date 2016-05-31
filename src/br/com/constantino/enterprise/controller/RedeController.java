@@ -14,7 +14,7 @@ import br.com.constantino.enterprise.utils.Messages;
 @ManagedBean
 public class RedeController {
 	
-	private Rede rede = new Rede();
+	private Rede rede = new Rede();	
 	
 	public void salva(Rede rede) {		
 		RedeDAO dao = new RedeDAO();
@@ -38,7 +38,10 @@ public class RedeController {
 		return grupoDAO.listar();
 	}
 	
-
+	public List<Rede> getRedes() {
+		RedeDAO dao = new RedeDAO();
+		return dao.getRedes();
+	}
 
 	public Rede getRede() {
 		return rede;

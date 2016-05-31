@@ -1,5 +1,6 @@
 package br.com.constantino.enterprise.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,10 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.com.constantino.enterprise.converter.SampleEntity;
+
 
 @Entity
 @Table(name="rede")
-public class Rede {
+public class Rede implements Serializable, SampleEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType .AUTO)
