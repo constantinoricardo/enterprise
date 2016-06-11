@@ -15,6 +15,7 @@ import br.com.constantino.enterprise.utils.Messages;
 public class RedeController {
 	
 	private Rede rede = new Rede();	
+	private String botao = "Salvar";
 	
 	public void salva(Rede rede) {		
 		RedeDAO dao = new RedeDAO();
@@ -28,9 +29,27 @@ public class RedeController {
 			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "O grupo é obrigatório", 
 					"Por favor, o grupo é de preenchimento obrigatório!");
 		} else {
-			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede cadastrada com sucesso!!!", "Rede cadastrada.");			
-			dao.inserir(rede);
+			
+			if (rede.getId() == null) {
+				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede cadastrada com sucesso!!!", "Rede cadastrada.");			
+				dao.inserir(rede);
+			} else {
+				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede alterada com sucesso!!!", "Rede cadastrada.");
+				dao.alterar(rede);
+			}
 		}
+	}
+	
+	public String excluir(Integer id) {
+		RedeDAO dao = new RedeDAO();
+		dao.deletar(id);
+		return "listar.xhtml";
+	}
+	
+	public String editar(Rede rede) {
+		this.rede = rede;
+		this.botao = "Atualizar";
+		return "index.xhtml";
 	}
 	
 	public List<Grupo> getGrupos() {
@@ -50,8 +69,13 @@ public class RedeController {
 	public void setRede(Rede rede) {
 		this.rede = rede;
 	}
-	
-	
-	
+
+	public String getBotao() {
+		return botao;
+	}
+
+	public void setBotao(String botao) {
+		this.botao = botao;
+	}
 
 }

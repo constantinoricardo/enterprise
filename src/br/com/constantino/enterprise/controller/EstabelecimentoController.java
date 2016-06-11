@@ -18,6 +18,7 @@ public class EstabelecimentoController {
 
 	private Estabelecimento estabelecimento = new Estabelecimento();
 	private List<Grupo> grupos;
+	private String botao = "Salvar";
 
 	public EstabelecimentoController() {
 		GrupoDAO grupoDAO = new GrupoDAO();
@@ -38,7 +39,18 @@ public class EstabelecimentoController {
 			this.grupos = grupoDAO.retornaListaGrupoOne(rede.getGrupo().getId());
 		}
 	}
-		
+	
+	public String editar(Estabelecimento estabelecimento) {
+		this.estabelecimento = estabelecimento;
+		this.botao = "Atualizar";
+		return "index.xhtml";
+	}
+	
+	public String excluir(Integer id) {
+		EstabelecimentoDAO dao = new EstabelecimentoDAO();
+		dao.deletar(id);		
+		return "listar.xhtml";
+	}
 	
 	public void salva(Estabelecimento estabelecimento) {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();						
@@ -55,8 +67,14 @@ public class EstabelecimentoController {
 		} else if (estabelecimento.getRede() == null && estabelecimento.getGrupo() == null)			
 			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Rede é obrigatório", "Rede é obrigatório");		
 		else {
-			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento cadastrado com sucesso.", "Estabecimento cadastrado com sucesso.");
-			dao.inserir(estabelecimento);					
+			
+			if (estabelecimento.getId() == null) {
+				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento cadastrado com sucesso.", "Estabecimento cadastrado com sucesso.");
+				dao.inserir(estabelecimento);			
+			} else {
+				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento alterado com sucesso.", "Estabecimento alterado com sucesso.");
+				dao.alterar(estabelecimento);
+			}
 		}
 	}
 			
@@ -77,4 +95,13 @@ public class EstabelecimentoController {
 	public void setEstabelecimento(Estabelecimento estabelecimento) {
 		this.estabelecimento = estabelecimento;
 	}
+
+	public String getBotao() {
+		return botao;
+	}
+
+	public void setBotao(String botao) {
+		this.botao = botao;
+	}
+		
 }

@@ -14,6 +14,7 @@
 	<h:messages />
 	
 	<h:form>
+		<h:inputHidden value="#{estabelecimentoController.estabelecimento.id}" />
 		<h:outputLabel value="CNPJ: " for="cnpj" />
 		<h:inputText value="#{estabelecimentoController.estabelecimento.CNPJ}" size="45" /><br />
 		
@@ -38,7 +39,7 @@
 			<f:converter converterId="grupoConverter" />			
 		</h:selectOneMenu><br /> 				
 	
-		<h:commandButton value="Salvar" action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}" ></h:commandButton>
+		<h:commandButton value="#{estabelecimentoController.botao}" action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}" ></h:commandButton>
 	</h:form>
 
 </h:body>

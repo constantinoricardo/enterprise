@@ -13,6 +13,7 @@
 	<h:messages />
 	
 	<h:form>
+	<h:inputHidden value="#{redeController.rede.id}" />
 		<h:outputLabel value="Nome: " for="nome" />
 		<h:inputText value="#{redeController.rede.nome}" /><br />
 		<h:outputLabel value="Grupo: " for="grupo" />
@@ -24,7 +25,7 @@
 		</h:selectOneMenu><br />
 		
 		<!--  <h:outputText id="outputText" value="#{redeController.rede.grupo}" />-->
-		<h:commandButton value="Salvar" action="#{redeController.salva(redeController.rede)}" ></h:commandButton>
+		<h:commandButton value="#{redeController.botao}" action="#{redeController.salva(redeController.rede)}" ></h:commandButton>
 	</h:form>
 </h:body>
 </h:html>

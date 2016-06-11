@@ -14,6 +14,20 @@ public class RedeDAO extends AbstractDAO {
 		em.getTransaction().commit();
 	}
 	
+	public void alterar(Rede rede) {
+		em.getTransaction().begin();
+		em.merge(rede);
+		em.getTransaction().commit();
+	}
+	
+	public void deletar(Integer id) {
+		Rede rede = this.buscarPeloCodigo(id);
+		
+		em.getTransaction().begin();
+		em.remove(rede);
+		em.getTransaction().commit();
+	}
+	
 	public List<Rede> getRedes() {
 		String jpql = "select r from Rede r";
 		Query query = em.createQuery(jpql, Rede.class);

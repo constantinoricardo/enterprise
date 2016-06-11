@@ -10,30 +10,46 @@
 <h:body>
 	<h1>Listagem de Redes</h1>
 	
-	<h:dataTable value="#{redeController.redes}" var="rede">
-	
-		<h:column>
-			<f:facet name="header">
-				ID
-			</f:facet>
-			#{rede.id}
-		</h:column>
+	<h:form>
+		<h:dataTable value="#{redeController.redes}" var="rede">	
+			<h:column>
+				<f:facet name="header">
+					ID
+				</f:facet>
+				#{rede.id}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					Nome
+				</f:facet>
+				#{rede.nome}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					Grupo
+				</f:facet>
+				#{rede.grupo.nome}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					Alterar
+				</f:facet>
+				<h:commandButton value="Editar" action="#{redeController.editar(rede)}" />
+			</h:column>	
+			
+			<h:column>
+				<f:facet name="header">
+					Excluir
+				</f:facet>
+				<h:commandButton value="Excluir" onclick="if (!confirm('Deseja excluir a rede #{rede.nome}?')) return false;" 
+				action="#{redeController.excluir(rede.id)}" />
+			</h:column>			
 		
-		<h:column>
-			<f:facet name="header">
-				Nome
-			</f:facet>
-			#{rede.nome}
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				Grupo
-			</f:facet>
-			#{rede.grupo.nome}
-		</h:column>
-	
-	</h:dataTable>
+		</h:dataTable>
+	</h:form>
 	
 </h:body>
 </h:html>

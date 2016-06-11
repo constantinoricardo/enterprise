@@ -11,51 +11,68 @@
 	
 	<h1>Lista de Estabelecimentos</h1>
 	
-	<h:dataTable value="#{estabelecimentoController.estabelecimentos}" var="estabelecimento">
-	
-		<h:column>
-			<f:facet name="header">
-				ID
-			</f:facet>
-			#{estabelecimento.id}
-		</h:column>
+	<h:form>
+		<h:dataTable value="#{estabelecimentoController.estabelecimentos}" var="estabelecimento">
 		
-		<h:column>
-			<f:facet name="header">
-				CNPJ
-			</f:facet>
-			#{estabelecimento.CNPJ}
-		</h:column>
+			<h:column>
+				<f:facet name="header">
+					ID
+				</f:facet>
+				#{estabelecimento.id}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					CNPJ
+				</f:facet>
+				#{estabelecimento.CNPJ}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					Nome Fantasia
+				</f:facet>
+				#{estabelecimento.nomeFantasia}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					Razão Social
+				</f:facet>
+				#{estabelecimento.razaoSocial}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					Grupo
+				</f:facet>
+				#{estabelecimento.grupo.nome}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					rede
+				</f:facet>
+				#{estabelecimento.rede.nome}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					Alterar
+				</f:facet>
+				<h:commandButton value="Editar" action="#{estabelecimentoController.editar(estabelecimento)}" />
+			</h:column>	
+			
+			<h:column>
+				<f:facet name="header">
+					Excluir
+				</f:facet>
+				<h:commandButton value="Excluir" onclick="if (!confirm('Deseja excluir o estabelecimento #{estabelecimento.razaoSocial}?')) return false;" 
+				action="#{estabelecimentoController.excluir(estabelecimento.id)}" />
+			</h:column>	
 		
-		<h:column>
-			<f:facet name="header">
-				Nome Fantasia
-			</f:facet>
-			#{estabelecimento.nomeFantasia}
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				Razão Social
-			</f:facet>
-			#{estabelecimento.razaoSocial}
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				Grupo
-			</f:facet>
-			#{estabelecimento.grupo.nome}
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				rede
-			</f:facet>
-			#{estabelecimento.rede.nome}
-		</h:column>
-	
-	</h:dataTable>
+		</h:dataTable>
+	</h:form>
 	
 </h:body>
 </h:html>

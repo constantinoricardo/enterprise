@@ -24,9 +24,23 @@ public class GrupoDAO extends AbstractDAO {
 		return em.find(Grupo.class, id);
 	}
 	
+	public void remover(Integer id) {
+		Grupo grupo = this.pegaGrupoPorId(id);
+		
+		em.getTransaction().begin();
+		em.remove(grupo);
+		em.getTransaction().commit();
+	}
+	
 	public void inserir(Grupo grupo) {
 		em.getTransaction().begin();
 		em.persist(grupo);
+		em.getTransaction().commit();
+	}
+	
+	public void alterar(Grupo grupo) {
+		em.getTransaction().begin();
+		em.merge(grupo);
 		em.getTransaction().commit();
 	}
 }
