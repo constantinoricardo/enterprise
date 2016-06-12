@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <h:html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html"	  
-		>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Cadastro de Grupos</title>
+	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
+		type="text/css" />
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
+		type="text/css" />
+	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Grupos</title>
 </h:head>
 <h:body>
 
-	<h1>Cadastro de Grupos</h1>			
-	
-	<h:messages />
-	<h:form>
-		<h:inputHidden value="#{grupoController.grupo.id}" />
-		Nome: <h:inputText value="#{grupoController.grupo.nome}" /><br />
-		<h:commandButton value="#{grupoController.botao}" action="#{grupoController.salva(grupoController.grupo)}" />
-	</h:form>
+	<ui:include src="../imports/menu.xhtml"></ui:include>
+
+	<div class="container">
+		<h1>Cadastro de Grupos</h1>
+
+		<h:messages styleClass="alert alert-success" />
+		<h:form>
+			<div class="form-group">
+				<h:inputHidden value="#{grupoController.grupo.id}" />
+				Nome: <h:inputText class="form-control" value="#{grupoController.grupo.nome}" />
+			</div>
+			<h:commandButton value="#{grupoController.botao}" class="btn btn-default"
+				action="#{grupoController.salva(grupoController.grupo)}" />
+				
+		</h:form>
+	</div>
 </h:body>
 </h:html>

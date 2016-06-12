@@ -1,78 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <h:html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Listagem de Estabelecimentos</title>
+	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
+		type="text/css" />
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
+		type="text/css" />
+	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Listagem de Estabelecimentos</title>
 </h:head>
 <h:body>
-	
-	<h1>Lista de Estabelecimentos</h1>
-	
-	<h:form>
-		<h:dataTable value="#{estabelecimentoController.estabelecimentos}" var="estabelecimento">
-		
-			<h:column>
-				<f:facet name="header">
+
+	<ui:include src="../imports/menu.xhtml"></ui:include>
+	<div class="container">
+		<h1>Lista de Estabelecimentos</h1>
+
+		<h:form>
+			<div class="table-responsive">
+				<h:dataTable class="table table-striped" value="#{estabelecimentoController.estabelecimentos}"
+					var="estabelecimento">
+
+					<h:column>
+						<f:facet name="header">
 					ID
 				</f:facet>
 				#{estabelecimento.id}
 			</h:column>
-			
-			<h:column>
-				<f:facet name="header">
+
+					<h:column>
+						<f:facet name="header">
 					CNPJ
 				</f:facet>
 				#{estabelecimento.CNPJ}
 			</h:column>
-			
-			<h:column>
-				<f:facet name="header">
+
+					<h:column>
+						<f:facet name="header">
 					Nome Fantasia
 				</f:facet>
 				#{estabelecimento.nomeFantasia}
 			</h:column>
-			
-			<h:column>
-				<f:facet name="header">
+
+					<h:column>
+						<f:facet name="header">
 					Razão Social
 				</f:facet>
 				#{estabelecimento.razaoSocial}
 			</h:column>
-			
-			<h:column>
-				<f:facet name="header">
+
+					<h:column>
+						<f:facet name="header">
 					Grupo
 				</f:facet>
 				#{estabelecimento.grupo.nome}
 			</h:column>
-			
-			<h:column>
-				<f:facet name="header">
+
+					<h:column>
+						<f:facet name="header">
 					rede
 				</f:facet>
 				#{estabelecimento.rede.nome}
 			</h:column>
-			
-			<h:column>
-				<f:facet name="header">
+
+					<h:column>
+						<f:facet name="header">
 					Alterar
 				</f:facet>
-				<h:commandButton value="Editar" action="#{estabelecimentoController.editar(estabelecimento)}" />
-			</h:column>	
-			
-			<h:column>
-				<f:facet name="header">
+						<h:commandButton value="Editar" class="btn btn-success"
+							action="#{estabelecimentoController.editar(estabelecimento)}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
 					Excluir
 				</f:facet>
-				<h:commandButton value="Excluir" onclick="if (!confirm('Deseja excluir o estabelecimento #{estabelecimento.razaoSocial}?')) return false;" 
-				action="#{estabelecimentoController.excluir(estabelecimento.id)}" />
-			</h:column>	
-		
-		</h:dataTable>
-	</h:form>
-	
+						<h:commandButton value="Excluir" class="btn btn-danger"
+							onclick="if (!confirm('Deseja excluir o estabelecimento #{estabelecimento.razaoSocial}?')) return false;"
+							action="#{estabelecimentoController.excluir(estabelecimento.id)}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+		</h:form>
+	</div>
 </h:body>
 </h:html>

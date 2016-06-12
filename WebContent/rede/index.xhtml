@@ -1,31 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<h:html xmlns="http://www.w3.org/1999/xhtml"	  
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Cadastro de Redes</title>
+	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
+		type="text/css" />
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
+		type="text/css" />
+	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Redes</title>
 </h:head>
 <h:body>
-	<h1>Cadastro de Redes</h1>
-	
-	<h:messages />
-	
-	<h:form>
-	<h:inputHidden value="#{redeController.rede.id}" />
-		<h:outputLabel value="Nome: " for="nome" />
-		<h:inputText value="#{redeController.rede.nome}" /><br />
-		<h:outputLabel value="Grupo: " for="grupo" />
-		
-		 <h:selectOneMenu value="#{redeController.rede.grupo}" id="grupo" name="grupo">
-			<f:selectItem itemValue="" itemLabel="--Selecione--" noSelectionOption="true" />
-			<f:selectItems value="#{redeController.grupos}" var="grupo" converter="grupoConverter"  itemLabel="#{grupo.nome}" itemValue="#{grupo}"/>
-			<f:converter converterId="grupoConverter" />			
-		</h:selectOneMenu><br />
-		
-		<!--  <h:outputText id="outputText" value="#{redeController.rede.grupo}" />-->
-		<h:commandButton value="#{redeController.botao}" action="#{redeController.salva(redeController.rede)}" ></h:commandButton>
-	</h:form>
+	<ui:include src="../imports/menu.xhtml"></ui:include>		
+
+	<div class="container">
+		<h1>Cadastro de Redes</h1>				
+
+		<h:messages styleClass="alert alert-success" />
+
+		<h:form>
+			<h:inputHidden value="#{redeController.rede.id}" />
+			
+			<div class="form-group">
+				<h:outputLabel value="Nome: " for="nome" />
+				<h:inputText class="form-control" value="#{redeController.rede.nome}" />
+			</div>
+			
+			<div class="form-group">
+				<h:outputLabel value="Grupo: " for="grupo" />
+				<h:selectOneMenu value="#{redeController.rede.grupo}" id="grupo" class="form-control"
+					name="grupo">
+					<f:selectItem itemValue="" itemLabel="--Selecione--"
+						noSelectionOption="true" />
+					<f:selectItems value="#{redeController.grupos}" var="grupo"
+						converter="grupoConverter" itemLabel="#{grupo.nome}"
+						itemValue="#{grupo}" />
+					<f:converter converterId="grupoConverter" />
+				</h:selectOneMenu>
+			</div>
+
+			<!--  <h:outputText id="outputText" value="#{redeController.rede.grupo}" />-->
+			<h:commandButton value="#{redeController.botao}" class="btn btn-default"
+				action="#{redeController.salva(redeController.rede)}"></h:commandButton>
+		</h:form>
+	</div>
 </h:body>
 </h:html>

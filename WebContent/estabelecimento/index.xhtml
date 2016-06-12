@@ -1,46 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<h:html xmlns="http://www.w3.org/1999/xhtml"	  
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Cadastro de Estabelecimentos</title>
+	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
+		type="text/css" />
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
+		type="text/css" />
+	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Estabelecimentos</title>
 </h:head>
 <h:body>
 
-<h1>Cadastro de Estabelecimentos</h1>
-	
-	<h:messages />
-	
-	<h:form>
-		<h:inputHidden value="#{estabelecimentoController.estabelecimento.id}" />
-		<h:outputLabel value="CNPJ: " for="cnpj" />
-		<h:inputText value="#{estabelecimentoController.estabelecimento.CNPJ}" size="45" /><br />
-		
-		<h:outputLabel value="Nome Fantasia: " for="nomeFantasia" />
-		<h:inputText value="#{estabelecimentoController.estabelecimento.nomeFantasia}" size="45" /><br />
-		
-		<h:outputLabel value="Razão Social: " for="razaoSocial" />
-		<h:inputText value="#{estabelecimentoController.estabelecimento.razaoSocial}" size="45" /><br />
-		
-		<h:outputLabel value="Rede: " for="rede" />
-		<h:selectOneMenu value="#{estabelecimentoController.estabelecimento.rede}" id="rede" name="rede">
-			<f:selectItem itemValue="" itemLabel="--Selecione--" noSelectionOption="true" />
-			<f:selectItems value="#{estabelecimentoController.redes}" var="rede" itemLabel="#{rede.nome}" itemValue="#{rede}" />
-			<f:converter converterId="redeConverter" />			
-			<f:ajax event="change" render="renderGrupo" listener="#{estabelecimentoController.carregarCombo(estabelecimentoController.estabelecimento)}" />
-		</h:selectOneMenu><br />
+	<ui:include src="../imports/menu.xhtml"></ui:include>
+	<div class="container">
+		<h1>Cadastro de Estabelecimentos</h1>
+
+		<h:messages styleClass="alert alert-success" />
+
+		<h:form>
+			<h:inputHidden
+				value="#{estabelecimentoController.estabelecimento.id}" />
+			<div class="form-group">
+				<h:outputLabel value="CNPJ: " for="cnpj" />
+				<h:inputText class="form-control" value="#{estabelecimentoController.estabelecimento.CNPJ}" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel value="Nome Fantasia: " for="nomeFantasia"/>
+				<h:inputText class="form-control" value="#{estabelecimentoController.estabelecimento.nomeFantasia}" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel value="Razão Social: " for="razaoSocial" />
+				<h:inputText class="form-control" value="#{estabelecimentoController.estabelecimento.razaoSocial}" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel value="Rede: " for="rede" />
+				<h:selectOneMenu class="form-control"
+					value="#{estabelecimentoController.estabelecimento.rede}" id="rede"
+					name="rede">
+					<f:selectItem itemValue="" itemLabel="--Selecione--"
+						noSelectionOption="true" />
+					<f:selectItems value="#{estabelecimentoController.redes}" var="rede"
+						itemLabel="#{rede.nome}" itemValue="#{rede}" />
+					<f:converter converterId="redeConverter" />
+					<f:ajax event="change" render="renderGrupo"
+						listener="#{estabelecimentoController.carregarCombo(estabelecimentoController.estabelecimento)}" />
+				</h:selectOneMenu>
+			</div>
 				
-        <h:outputLabel value="Grupo: " for="grupo" />				
-		<h:selectOneMenu value="#{estabelecimentoController.estabelecimento.grupo}" id="renderGrupo" name="grupo">
-			<f:selectItem itemValue="" itemLabel="--Selecione--" noSelectionOption="true" />
-			<f:selectItems value="#{estabelecimentoController.grupos}" var="grupo"  itemLabel="#{grupo.nome}" itemValue="#{grupo}"/>
-			<f:converter converterId="grupoConverter" />			
-		</h:selectOneMenu><br /> 				
-	
-		<h:commandButton value="#{estabelecimentoController.botao}" action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}" ></h:commandButton>
-	</h:form>
+			<div class="form-group">		
+				<h:outputLabel value="Grupo: " for="grupo" />
+				<h:selectOneMenu class="form-control"
+					value="#{estabelecimentoController.estabelecimento.grupo}"
+					id="renderGrupo" name="grupo">
+					<f:selectItem itemValue="" itemLabel="--Selecione--"
+						noSelectionOption="true" />
+					<f:selectItems value="#{estabelecimentoController.grupos}"
+						var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+					<f:converter converterId="grupoConverter" />
+				</h:selectOneMenu>
+			</div>
+
+			<h:commandButton value="#{estabelecimentoController.botao}" class="btn btn-default"
+				action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}"></h:commandButton>
+		</h:form>
+	</div>
 
 </h:body>
 </h:html>
