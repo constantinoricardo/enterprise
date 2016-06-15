@@ -30,13 +30,14 @@ public class RedeController {
 					"Por favor, o grupo é de preenchimento obrigatório!");
 		} else {
 			
-			if (rede.getId() == null) {
+			if (rede.getId() == null || rede.getId() == 0) {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede cadastrada com sucesso!!!", "Rede cadastrada.");			
 				dao.inserir(rede);
 			} else {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede alterada com sucesso!!!", "Rede cadastrada.");
 				dao.alterar(rede);
 			}
+			this.limpar();
 		}
 	}
 	
@@ -44,6 +45,19 @@ public class RedeController {
 		RedeDAO dao = new RedeDAO();
 		dao.deletar(id);
 		return "listar.xhtml";
+	}
+	
+	public String limpar() {
+		
+		this.rede.setNome("");
+		this.rede.setGrupo(null);
+		
+		if (this.rede.getId() == null || this.rede.getId() == 0)
+			this.botao = "Salvar";
+		else
+			this.botao = "Atualizar";
+		
+		return "index.xhtml";
 	}
 	
 	public String editar(Rede rede) {

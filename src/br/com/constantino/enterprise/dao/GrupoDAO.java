@@ -3,6 +3,7 @@ package br.com.constantino.enterprise.dao;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
 import br.com.constantino.enterprise.entities.Grupo;
 
@@ -30,6 +31,7 @@ public class GrupoDAO extends AbstractDAO {
 		em.getTransaction().begin();
 		em.remove(grupo);
 		em.getTransaction().commit();
+		
 	}
 	
 	public void inserir(Grupo grupo) {

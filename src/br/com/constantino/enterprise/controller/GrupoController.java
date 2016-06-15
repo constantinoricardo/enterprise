@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.persistence.RollbackException;
 
 import br.com.constantino.enterprise.dao.GrupoDAO;
 import br.com.constantino.enterprise.entities.Grupo;
@@ -30,14 +31,27 @@ public class GrupoController {
 					"Por favor, o nome é de preenchimento obrigatório!");						
 		} else {								
 			
-			if (grupo.getId() == null) {			
+			if (grupo.getId() == null || grupo.getId() == 0) {			
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Cadastrado com sucesso!", "Parabéns");		
 				dao.inserir(grupo);
 			} else {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Alterado com sucesso!", "Parabéns");
 				dao.alterar(grupo);
 			}
+			this.limpar();
 		}
+	}
+	
+	public String limpar() {
+		
+		this.grupo.setNome("");
+		
+		if (this.grupo.getId() == null || this.grupo.getId() == 0)
+			this.botao = "Salvar";
+		else
+			this.botao = "Atualizar";
+		
+		return "index.xhtml";
 	}
 	
 	public String editar(Grupo grupo) {				
@@ -47,8 +61,13 @@ public class GrupoController {
 	}
 	
 	public String excluir(Integer id) {
-		GrupoDAO dao = new GrupoDAO();
-		dao.remover(id);
+		try {
+			GrupoDAO dao = new GrupoDAO();
+			dao.remover(id);
+		} catch (RollbackException e) {
+			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Este grupo possui uma ou mais redes, exclua todas primeiro!", "Não é possível excluir item!");
+		}
+		
 		return "listar.xhtml";			
 	}
 

@@ -35,8 +35,14 @@
 				<h:inputText class="form-control" value="#{produtoController.produto.preco}" />
 			</div>	
 			
-			<h:commandButton value="#{produtoController.botao}" class="btn btn-default" 
-			action="#{produtoController.salva(produtoController.produto)}"></h:commandButton>
+			<div class="form-group">
+				<h:commandButton value="#{produtoController.botao}" class="btn btn-default" 
+				action="#{produtoController.salva(produtoController.produto)}"></h:commandButton>
+				&nbsp;&nbsp;
+				<h:commandButton value="Limpar" class="btn btn-primary" action="#{produtoController.limpar()}"></h:commandButton>
+			</div>
+			
+			
 		</h:form>
 	</div>
 

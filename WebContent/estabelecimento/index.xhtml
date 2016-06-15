@@ -68,9 +68,13 @@
 					<f:converter converterId="grupoConverter" />
 				</h:selectOneMenu>
 			</div>
-
-			<h:commandButton value="#{estabelecimentoController.botao}" class="btn btn-default"
-				action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}"></h:commandButton>
+			
+			<div class="form-group">
+				<h:commandButton value="#{estabelecimentoController.botao}" class="btn btn-default"
+					action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}"></h:commandButton>
+				&nbsp;&nbsp;
+				<h:commandButton value="Limpar" class="btn btn-primary" action="#{estabelecimentoController.limpar()}"></h:commandButton>
+			</div>
 		</h:form>
 	</div>
 

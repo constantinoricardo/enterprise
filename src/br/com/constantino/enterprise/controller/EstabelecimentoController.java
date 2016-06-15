@@ -40,6 +40,21 @@ public class EstabelecimentoController {
 		}
 	}
 	
+	public String limpar() {
+		this.estabelecimento.setCNPJ("");
+		this.estabelecimento.setGrupo(null);
+		this.estabelecimento.setNomeFantasia("");
+		this.estabelecimento.setRazaoSocial("");
+		this.estabelecimento.setRede(null);
+		
+		if (this.estabelecimento.getId() == null || this.estabelecimento.getId() == 0) 
+			this.botao = "Salvar";
+		else 
+			this.botao = "Atualizar";
+		
+		return "index.xhtml";
+	}
+	
 	public String editar(Estabelecimento estabelecimento) {
 		this.estabelecimento = estabelecimento;
 		this.botao = "Atualizar";
@@ -68,13 +83,14 @@ public class EstabelecimentoController {
 			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Rede é obrigatório", "Rede é obrigatório");		
 		else {
 			
-			if (estabelecimento.getId() == null) {
+			if (estabelecimento.getId() == null || estabelecimento.getId() == 0) {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento cadastrado com sucesso.", "Estabecimento cadastrado com sucesso.");
 				dao.inserir(estabelecimento);			
 			} else {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento alterado com sucesso.", "Estabecimento alterado com sucesso.");
 				dao.alterar(estabelecimento);
-			}
+			}			
+			this.limpar();
 		}
 	}
 			

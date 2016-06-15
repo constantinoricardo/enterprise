@@ -44,9 +44,12 @@
 				</h:selectOneMenu>
 			</div>
 
-			<!--  <h:outputText id="outputText" value="#{redeController.rede.grupo}" />-->
-			<h:commandButton value="#{redeController.botao}" class="btn btn-default"
+			<div class="form-group">
+				<h:commandButton value="#{redeController.botao}" class="btn btn-default"
 				action="#{redeController.salva(redeController.rede)}"></h:commandButton>
+				&nbsp;&nbsp;
+				<h:commandButton value="Limpar" class="btn btn-primary" action="#{redeController.limpar()}"></h:commandButton>
+			</div>
 		</h:form>
 	</div>
 </h:body>
