@@ -5,14 +5,8 @@ import java.util.List;
 import br.com.constantino.enterprise.entities.Estabelecimento;
 
 public class EstabelecimentoDAO extends AbstractDAO {
-
-	public void inserir(Estabelecimento estabelecimento) {
-		em.getTransaction().begin();
-		em.persist(estabelecimento);
-		em.getTransaction().commit();
-	}
 	
-	public void alterar(Estabelecimento estabelecimento) {
+	public void merge(Estabelecimento estabelecimento) {
 		em.getTransaction().begin();
 		em.merge(estabelecimento);
 		em.getTransaction().commit();

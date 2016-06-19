@@ -48,16 +48,16 @@ public class EstabelecimentoController {
 		this.estabelecimento.setRede(null);
 		
 		if (this.estabelecimento.getId() == null || this.estabelecimento.getId() == 0) 
-			this.botao = "Salvar";
+			this.setBotao("Salvar");
 		else 
-			this.botao = "Atualizar";
+			this.setBotao("Atualizar");
 		
 		return "index.xhtml";
 	}
 	
 	public String editar(Estabelecimento estabelecimento) {
 		this.estabelecimento = estabelecimento;
-		this.botao = "Atualizar";
+		this.setBotao("Atualizar");
 		return "index.xhtml";
 	}
 	
@@ -83,14 +83,15 @@ public class EstabelecimentoController {
 			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Rede é obrigatório", "Rede é obrigatório");		
 		else {
 			
+			dao.merge(estabelecimento);
+			
 			if (estabelecimento.getId() == null || estabelecimento.getId() == 0) {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento cadastrado com sucesso.", "Estabecimento cadastrado com sucesso.");
-				dao.inserir(estabelecimento);			
+				this.limpar();		
 			} else {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento alterado com sucesso.", "Estabecimento alterado com sucesso.");
-				dao.alterar(estabelecimento);
+				this.setBotao("Atualizar");
 			}			
-			this.limpar();
 		}
 	}
 			

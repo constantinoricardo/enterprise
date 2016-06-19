@@ -31,32 +31,32 @@ public class GrupoController {
 					"Por favor, o nome é de preenchimento obrigatório!");						
 		} else {								
 			
+			dao.merge(grupo);
+			
 			if (grupo.getId() == null || grupo.getId() == 0) {			
-				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Cadastrado com sucesso!", "Parabéns");		
-				dao.inserir(grupo);
+				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Cadastrado com sucesso!", "Parabéns");				
+				this.limpar();				
 			} else {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Alterado com sucesso!", "Parabéns");
-				dao.alterar(grupo);
-			}
-			this.limpar();
+				this.setBotao("Atualizar");
+			}			
 		}
 	}
 	
-	public String limpar() {
-		
+	public String limpar() {		
 		this.grupo.setNome("");
 		
-		if (this.grupo.getId() == null || this.grupo.getId() == 0)
-			this.botao = "Salvar";
+		if (this.grupo.getId() == null || this.grupo.getId() == 0) 
+			this.setBotao("Salvar");
 		else
-			this.botao = "Atualizar";
+			this.setBotao("Atualizar");
 		
 		return "index.xhtml";
 	}
 	
 	public String editar(Grupo grupo) {				
 		this.grupo = grupo;	
-		this.botao = "Atualizar";
+		this.setBotao("Atualizar");
 		return "index.xhtml";
 	}
 	

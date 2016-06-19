@@ -6,15 +6,9 @@ import javax.persistence.Query;
 
 import br.com.constantino.enterprise.entities.Produto;
 
-public class ProdutoDAO extends AbstractDAO {
+public class ProdutoDAO extends AbstractDAO {		
 	
-	public void inserir(Produto produto) {
-		em.getTransaction().begin();
-		em.persist(produto);
-		em.getTransaction().commit();
-	}
-	
-	public void alterar(Produto produto) {
+	public void merge(Produto produto) {
 		em.getTransaction().begin();
 		em.merge(produto);
 		em.getTransaction().commit();

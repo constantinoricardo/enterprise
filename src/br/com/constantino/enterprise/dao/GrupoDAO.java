@@ -34,15 +34,9 @@ public class GrupoDAO extends AbstractDAO {
 		
 	}
 	
-	public void inserir(Grupo grupo) {
-		em.getTransaction().begin();
-		em.persist(grupo);
-		em.getTransaction().commit();
-	}
-	
-	public void alterar(Grupo grupo) {
+	public void merge(Grupo grupo) {
 		em.getTransaction().begin();
 		em.merge(grupo);
 		em.getTransaction().commit();
-	}
+	}	
 }

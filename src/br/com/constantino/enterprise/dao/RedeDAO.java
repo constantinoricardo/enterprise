@@ -7,14 +7,8 @@ import javax.persistence.Query;
 import br.com.constantino.enterprise.entities.Rede;
 
 public class RedeDAO extends AbstractDAO {
-
-	public void inserir(Rede rede) {
-		em.getTransaction().begin();
-		em.persist(rede);
-		em.getTransaction().commit();
-	}
 	
-	public void alterar(Rede rede) {
+	public void merge(Rede rede) {
 		em.getTransaction().begin();
 		em.merge(rede);
 		em.getTransaction().commit();

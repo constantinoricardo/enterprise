@@ -26,15 +26,15 @@ public class ProdutoController {
 			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "O preço do produto é obrigatório", "Preço");
 		} else {
 			
+			dao.merge(produto);
+			
 			if (produto.getId() == null || produto.getId() == 0) {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Produto cadastrado com sucesso!", "Preço");
-				dao.inserir(produto);
+				this.limpar();
 			} else {
 				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Produto alterado com sucesso!", "Preço");
-				dao.alterar(produto);
-			}
-			
-			this.limpar();			
+				this.setBotao("Atualizar");
+			}							
 		}		
 	}
 	
@@ -43,9 +43,9 @@ public class ProdutoController {
 		this.produto.setPreco(null);
 		
 		if (this.produto.getId() == null || this.produto.getId() == 0)
-			this.botao = "Salvar";
+			this.setBotao("Salvar");
 		else
-			this.botao = "Atualizar";
+			this.setBotao("Atualizar");
 		
 		return "index.xhtml";
 	}
@@ -63,7 +63,7 @@ public class ProdutoController {
 	
 	public String editar(Produto produto) {
 		this.produto = produto;
-		this.botao = "Atualizar";
+		this.setBotao("Atualizar");
 		return "index.xhtml";
 	}
 	
