@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
+		type="text/css" />
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
+		type="text/css" />
+	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Pedidos</title>
+</h:head>
+<h:body>
+
+	<ui:include src="../imports/menu.xhtml"></ui:include>
+	<div class="container">
+		<h1>Realize o Pedido</h1>
+		
+		<h:messages styleClass="alert alert-success" />
+		
+		<h:form>
+			<div class="form-group">
+				<h:outputLabel value="Pedido" for="pedido" />
+				<h:selectOneMenu class="form-control" value="#{pedidoController.pedido.estabelecimento}"
+					id="renderEstabelecimento" name="estabelecimento">
+					<f:selectItem itemValue="" itemLabel="--Selecione--"
+						noSelectionOption="true" />
+					<f:selectItems value="#{pedidoController.estabelecimentos}"
+						var="estabelecimento" itemLabel="#{estabelecimento.nomeFantasia}" itemValue="#{estabelecimento}" />
+					<f:converter converterId="estabelecimentoConverter" />
+				</h:selectOneMenu>
+			</div>
+			
+			<div class="table-responsive">
+				<h:dataTable class="table table-striped"
+					value="#{produtoController.produtos}" var="produto">
+				
+					<h:column>
+						<f:facet name="header">ID</f:facet>
+						#{produto.id}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Nome</f:facet>
+						#{produto.nome}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Preço</f:facet>
+						#{produto.preco}
+					</h:column>
+										
+					<h:column>
+						<f:facet name="header">Selecionar</f:facet>
+						<h:selectManyCheckbox value="#{produtoController.produtos}">
+							<f:selectItem itemValue="#{produto.id}" itemLabel=""></f:selectItem>
+						</h:selectManyCheckbox>
+					</h:column>															
+				</h:dataTable>
+			</div>
+			
+			<div class="form-group">
+				<h:commandButton value="Salvar" action="#{pedidoController.salva(pedidoController.pedido)}" class="btn btn-default"></h:commandButton>
+				&nbsp;&nbsp;
+				<h:commandButton value="Limpar" class="btn btn-primary"></h:commandButton>
+			</div>
+		</h:form>
+		
+	</div>
+</h:body>
+</h:html>
