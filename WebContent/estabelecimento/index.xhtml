@@ -5,20 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
-		type="text/css" />
-	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
-		type="text/css" />
-	<script src="../resources/js/jquery.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>	
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
 	<title>Cadastro de Estabelecimentos</title>
 </h:head>
-<h:body>
+<ui:composition template="../template/template.xhtml">
 
-	<ui:include src="../imports/menu.xhtml"></ui:include>
-	<div class="container">
-		<h1>Cadastro de Estabelecimentos</h1>
+	<ui:define name="titulo">
+		Cadastro de Estabelecimentos
+	</ui:define>
+
+	<ui:define name="container">		
 
 		<h:messages styleClass="alert alert-success" />
 
@@ -28,46 +24,44 @@
 				
 			<div class="form-group">
 				<h:outputLabel value="CNPJ: " for="cnpj" />
-				<h:inputText class="form-control" value="#{estabelecimentoController.estabelecimento.CNPJ}" />
+				<h:inputText class="form-control" required="true" requiredMessage="Por favor, o CNPJ é obrigatório" value="#{estabelecimentoController.estabelecimento.CNPJ}" />
 			</div>
 
 			<div class="form-group">
 				<h:outputLabel value="Nome Fantasia: " for="nomeFantasia"/>
-				<h:inputText class="form-control" value="#{estabelecimentoController.estabelecimento.nomeFantasia}" />
+				<h:inputText class="form-control" required="true" requiredMessage="Por favor, Nome Fantasia é obrigatório" value="#{estabelecimentoController.estabelecimento.nomeFantasia}" />
 			</div>
 
 			<div class="form-group">
 				<h:outputLabel value="Razão Social: " for="razaoSocial" />
-				<h:inputText class="form-control" value="#{estabelecimentoController.estabelecimento.razaoSocial}" />
+				<h:inputText class="form-control" required="true" requiredMessage="Por favor, Razão Social é obrigatório" value="#{estabelecimentoController.estabelecimento.razaoSocial}" />
+			</div>
+			
+			<div class="form-group">		
+				<h:outputLabel value="Grupo: " for="grupo" />
+				<h:selectOneMenu class="form-control"
+					value="#{estabelecimentoController.grupoId}" 
+					name="grupo" required="true" requiredMessage="Por favor, o Grupo é obrigatório">
+					<f:selectItem itemValue="" itemLabel="--Selecione--"
+						noSelectionOption="true" />
+					<f:selectItems value="#{estabelecimentoController.grupos}"
+						var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo.id}" />
+						<f:ajax event="change" render="renderRedeId"
+						listener="#{estabelecimentoController.carregarCombo(estabelecimentoController.grupoId)}" />					
+				</h:selectOneMenu>
 			</div>
 
 			<div class="form-group">
 				<h:outputLabel value="Rede: " for="rede" />
 				<h:selectOneMenu class="form-control"
-					value="#{estabelecimentoController.estabelecimento.rede}" id="rede"
-					name="rede">
+					value="#{estabelecimentoController.redeId}" 
+					name="rede" id="renderRedeId">
 					<f:selectItem itemValue="" itemLabel="--Selecione--"
 						noSelectionOption="true" />
 					<f:selectItems value="#{estabelecimentoController.redes}" var="rede"
-						itemLabel="#{rede.nome}" itemValue="#{rede}" />
-					<f:converter converterId="redeConverter" />
-					<f:ajax event="change" render="renderGrupo"
-						listener="#{estabelecimentoController.carregarCombo(estabelecimentoController.estabelecimento)}" />
+						itemLabel="#{rede.nome}" itemValue="#{rede.id}" />										
 				</h:selectOneMenu>
-			</div>
-				
-			<div class="form-group">		
-				<h:outputLabel value="Grupo: " for="grupo" />
-				<h:selectOneMenu class="form-control"
-					value="#{estabelecimentoController.estabelecimento.grupo}"
-					id="renderGrupo" name="grupo">
-					<f:selectItem itemValue="" itemLabel="--Selecione--"
-						noSelectionOption="true" />
-					<f:selectItems value="#{estabelecimentoController.grupos}"
-						var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
-					<f:converter converterId="grupoConverter" />
-				</h:selectOneMenu>
-			</div>
+			</div>							
 			
 			<div class="form-group">
 				<h:commandButton value="#{estabelecimentoController.botao}" class="btn btn-default"
@@ -76,7 +70,7 @@
 				<h:commandButton value="Limpar" class="btn btn-primary" action="#{estabelecimentoController.limpar()}"></h:commandButton>
 			</div>
 		</h:form>
-	</div>
+	</ui:define>
 
-</h:body>
+</ui:composition>
 </h:html>

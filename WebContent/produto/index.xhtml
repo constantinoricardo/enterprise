@@ -4,22 +4,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
-		type="text/css" />
-	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
-		type="text/css" />
-	<script src="../resources/js/jquery.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<h:head>	
 	<title>Cadastro de Produto</title>
 </h:head>
-<h:body>
-
-	<ui:include src="../imports/menu.xhtml"></ui:include>
-	<div class="container">
-		<h1>Cadastro de Produtos</h1>
-
+<ui:composition template="../template/template.xhtml">
+	<ui:define name="titulo">
+		Cadastro de Produtos
+	</ui:define>
+		
+	<ui:define name="container">		
 		<h:messages styleClass="alert alert-success" />
 
 		<h:form>
@@ -44,7 +37,7 @@
 			
 			
 		</h:form>
-	</div>
+	</ui:define>
 
-</h:body>
+</ui:composition>
 </h:html>

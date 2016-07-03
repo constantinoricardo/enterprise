@@ -22,6 +22,14 @@ public class RedeDAO extends AbstractDAO {
 		em.getTransaction().commit();
 	}
 	
+	public List<Rede> getRedeGrupo(Integer grupoId) {
+		
+		String jpql = "select r from Rede r where r.grupo.id = :id";
+		Query query = this.em.createQuery(jpql, Rede.class);
+		query.setParameter("id", grupoId);
+		return query.getResultList();
+	}
+	
 	public List<Rede> getRedes() {
 		String jpql = "select r from Rede r";
 		Query query = em.createQuery(jpql, Rede.class);
@@ -30,5 +38,12 @@ public class RedeDAO extends AbstractDAO {
 	
 	public Rede buscarPeloCodigo(Integer id) {
 		return em.find(Rede.class, id);
+	}
+	
+	public List<Rede> buscarRedeListaId(Integer id) {
+		String jpql = "select r from Rede r where r.id = :id";
+		Query query = em.createQuery(jpql, Rede.class);
+		query.setParameter("id", id);
+		return query.getResultList();
 	}
 }

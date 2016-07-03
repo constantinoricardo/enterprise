@@ -5,25 +5,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
-		type="text/css" />
-	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
-		type="text/css" />
-	<script src="../resources/js/jquery.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Listagem de Redes</title>
 </h:head>
-<h:body>
+<ui:composition template="../template/template.xhtml">
 
-	<ui:include src="../imports/menu.xhtml"></ui:include>
+	<ui:define name="titulo">
+		Listagem de Redes
+	</ui:define>
 
-	<div class="container">
-		<h1>Listagem de Redes</h1>
-
+	<ui:define name="container">
 		<h:form>
 			<div class="table-responsive">
-				<h:dataTable class="table table-striped" value="#{redeController.redes}" var="rede">
+				<h:dataTable class="table table-striped"
+					value="#{redeController.redes}" var="rede">
 					<h:column>
 						<f:facet name="header">
 					ID
@@ -65,7 +59,7 @@
 				</h:dataTable>
 			</div>
 		</h:form>
-	</div>
+	</ui:define>
 
-</h:body>
+</ui:composition>
 </h:html>

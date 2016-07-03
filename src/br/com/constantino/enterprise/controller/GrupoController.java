@@ -26,21 +26,15 @@ public class GrupoController {
 	public void salva(Grupo grupo) {
 		GrupoDAO dao = new GrupoDAO();				
 		
-		if (grupo.getNome().trim().equals("")) {
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "O nome é obrigatório", 
-					"Por favor, o nome é de preenchimento obrigatório!");						
-		} else {								
-			
-			dao.merge(grupo);
-			
-			if (grupo.getId() == null || grupo.getId() == 0) {			
-				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Cadastrado com sucesso!", "Parabéns");				
-				this.limpar();				
-			} else {
-				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Alterado com sucesso!", "Parabéns");
-				this.setBotao("Atualizar");
-			}			
-		}
+		dao.merge(grupo);
+		
+		if (grupo.getId() == null || grupo.getId() == 0) {			
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Cadastrado com sucesso!", "Parabéns");				
+			this.limpar();				
+		} else {
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Grupo Alterado com sucesso!", "Parabéns");
+			this.setBotao("Atualizar");
+		}			
 	}
 	
 	public String limpar() {		

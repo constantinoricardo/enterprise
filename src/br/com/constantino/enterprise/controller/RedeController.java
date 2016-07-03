@@ -14,32 +14,26 @@ import br.com.constantino.enterprise.utils.Messages;
 @ManagedBean
 public class RedeController {
 	
-	private Rede rede = new Rede();	
+	private Rede rede = new Rede();
+	private Integer grupoId;
 	private String botao = "Salvar";
 	
 	public void salva(Rede rede) {		
 		RedeDAO dao = new RedeDAO();
+		GrupoDAO grupoDao = new GrupoDAO();
 		
-		if (rede.getNome().trim().equals("")) {
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "O nome é obrigatório", 
-					"Por favor, o nome é de preenchimento obrigatório!");	
-		}
-		else if (rede.getGrupo() == null) {
-	    
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "O grupo é obrigatório", 
-					"Por favor, o grupo é de preenchimento obrigatório!");
+		Grupo grupo = grupoDao.pegaGrupoPorId(this.grupoId);
+		this.rede.setGrupo(grupo);
+				
+		dao.merge(rede);
+		
+		if (rede.getId() == null || rede.getId() == 0) {
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede cadastrada com sucesso!!!", "Rede cadastrada.");			
+			this.limpar();
 		} else {
-			
-			dao.merge(rede);
-			
-			if (rede.getId() == null || rede.getId() == 0) {
-				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede cadastrada com sucesso!!!", "Rede cadastrada.");			
-				this.limpar();
-			} else {
-				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede alterada com sucesso!!!", "Rede cadastrada.");
-				this.setBotao("Atualizar");
-			}			
-		}
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Rede alterada com sucesso!!!", "Rede cadastrada.");
+			this.setBotao("Atualizar");
+		}			
 	}
 	
 	public String excluir(Integer id) {
@@ -51,7 +45,7 @@ public class RedeController {
 	public String limpar() {
 		
 		this.rede.setNome("");
-		this.rede.setGrupo(null);
+		this.setGrupoId(0);
 		
 		if (this.rede.getId() == null || this.rede.getId() == 0)
 			this.setBotao("Salvar");
@@ -63,6 +57,7 @@ public class RedeController {
 	
 	public String editar(Rede rede) {
 		this.rede = rede;
+		this.grupoId = rede.getGrupo().getId();
 		this.setBotao("Atualizar");
 		return "index.xhtml";
 	}
@@ -92,5 +87,14 @@ public class RedeController {
 	public void setBotao(String botao) {
 		this.botao = botao;
 	}
+	
+	public Integer getGrupoId() {
+		return grupoId;
+	}
+	
+	public void setGrupoId(Integer grupoId) {
+		this.grupoId = grupoId;
+	}
+	
 
 }

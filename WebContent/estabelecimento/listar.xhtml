@@ -5,26 +5,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
-		type="text/css" />
-	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
-		type="text/css" />
-	<script src="../resources/js/jquery.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Listagem de Estabelecimentos</title>
 </h:head>
-<h:body>
+<ui:composition template="../template/template.xhtml">
 
-	<ui:include src="../imports/menu.xhtml"></ui:include>
-	<div class="container">
-		<h1>Lista de Estabelecimentos</h1>
+	<ui:define name="titulo">
+		Lista de Estabelecimentos
+	</ui:define>
+
+	<ui:define name="container">		
 
 		<h:form>
 			<div class="table-responsive">
-				<h:dataTable class="table table-striped" value="#{estabelecimentoController.estabelecimentos}"
+				<h:dataTable class="table table-striped"
+					value="#{estabelecimentoController.estabelecimentos}"
 					var="estabelecimento">
 
 					<h:column>
@@ -88,6 +82,6 @@
 				</h:dataTable>
 			</div>
 		</h:form>
-	</div>
-</h:body>
+	</ui:define>
+</ui:composition>
 </h:html>

@@ -3,29 +3,21 @@
 <h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css"
-		type="text/css" />
-	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"
-		type="text/css" />
-	<script src="../resources/js/jquery.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<h:head>	
 	<title>Cadastro de Grupos</title>
 </h:head>
-<h:body>
+<ui:composition template="../template/template.xhtml">
 
-	<ui:include src="../imports/menu.xhtml"></ui:include>
+	<ui:define name="titulo">
+		Cadastro de Grupos
+	</ui:define>
 
-	<div class="container">
-		<h1>Cadastro de Grupos</h1>
-
+	<ui:define name="container">		
 		<h:messages styleClass="alert alert-success" />
 		<h:form>
 			<div class="form-group">
 				<h:inputHidden value="#{grupoController.grupo.id}" />
-				Nome: <h:inputText class="form-control" value="#{grupoController.grupo.nome}" />
+				Nome: <h:inputText class="form-control" required="true" requiredMessage="Por favor, Grupo é obrigatório" value="#{grupoController.grupo.nome}" />
 			</div>
 			
 			<div class="form-group">
@@ -36,6 +28,6 @@
 			</div>
 				
 		</h:form>
-	</div>
-</h:body>
+	</ui:define>
+</ui:composition>
 </h:html>

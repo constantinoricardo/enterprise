@@ -1,6 +1,5 @@
 package br.com.constantino.enterprise.entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,11 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.com.constantino.enterprise.converter.SampleEntity;
-
 @Entity
 @Table(name="grupo")
-public class Grupo implements Serializable, SampleEntity {
+public class Grupo {
 
 	/**
 	 * 

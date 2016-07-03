@@ -18,11 +18,17 @@ public class EstabelecimentoController {
 
 	private Estabelecimento estabelecimento = new Estabelecimento();
 	private List<Grupo> grupos;
+	private List<Rede> redes;
 	private String botao = "Salvar";
+	private Integer grupoId;
+	private Integer redeId;
 
 	public EstabelecimentoController() {
 		GrupoDAO grupoDAO = new GrupoDAO();
+		RedeDAO redeDAO = new RedeDAO();
+		
 		this.grupos = grupoDAO.listar();
+		this.redes = redeDAO.getRedes();		
 	}
 	
 	public List<Estabelecimento> getEstabelecimentos() {
@@ -30,22 +36,17 @@ public class EstabelecimentoController {
 		return dao.listar();
 	}
 	
-	public void carregarCombo(Estabelecimento estabelecimento) {
-		if (estabelecimento.getRede() != null) {
-			GrupoDAO grupoDAO = new GrupoDAO();
-			RedeDAO redeDAO = new RedeDAO();						
-			Integer rede_id = estabelecimento.getRede().getId();
-			Rede rede = redeDAO.buscarPeloCodigo(rede_id);
-			this.grupos = grupoDAO.retornaListaGrupoOne(rede.getGrupo().getId());
-		}
+	public void carregarCombo(Integer grupoId) {
+		RedeDAO redeDAO = new RedeDAO();
+		this.redes = redeDAO.getRedeGrupo(grupoId);
 	}
 	
 	public String limpar() {
 		this.estabelecimento.setCNPJ("");
-		this.estabelecimento.setGrupo(null);
+		this.setGrupoId(null);
 		this.estabelecimento.setNomeFantasia("");
 		this.estabelecimento.setRazaoSocial("");
-		this.estabelecimento.setRede(null);
+		this.setRedeId(null);
 		
 		if (this.estabelecimento.getId() == null || this.estabelecimento.getId() == 0) 
 			this.setBotao("Salvar");
@@ -55,9 +56,12 @@ public class EstabelecimentoController {
 		return "index.xhtml";
 	}
 	
-	public String editar(Estabelecimento estabelecimento) {
+	public String editar(Estabelecimento estabelecimento) {		
 		this.estabelecimento = estabelecimento;
+		this.redeId = this.estabelecimento.getRede().getId();
+		this.grupoId = this.estabelecimento.getGrupo().getId();		
 		this.setBotao("Atualizar");
+		
 		return "index.xhtml";
 	}
 	
@@ -69,30 +73,25 @@ public class EstabelecimentoController {
 	
 	public void salva(Estabelecimento estabelecimento) {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();						
+		GrupoDAO grupoDAO = new GrupoDAO();
+		RedeDAO redeDAO = new RedeDAO();
 		
-		if (estabelecimento.getCNPJ().trim().equals(""))			
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "CNPJ é obrigatório.", "CNPJ é obrigatório.");		
-		else if (estabelecimento.getNomeFantasia().trim().equals(""))			
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Nome Fantasia é obrigatório", "Nome Fantasia é obrigatório");		
-		else if (estabelecimento.getRazaoSocial().trim().equals(""))			
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Razão Social é obrigatório", "Razão Social é obrigatório");		
-		else if (estabelecimento.getRede() != null && estabelecimento.getGrupo() == null) {			
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Grupo é obrigatório se a rede for escolhida", "Grupo é obrigatório");			
-			carregarCombo(estabelecimento);				
-		} else if (estabelecimento.getRede() == null && estabelecimento.getGrupo() == null)			
-			Messages.getMessagem(FacesMessage.SEVERITY_ERROR, "Rede é obrigatório", "Rede é obrigatório");		
-		else {
+		Grupo grupo = grupoDAO.pegaGrupoPorId(this.grupoId);
+		this.estabelecimento.setGrupo(grupo);
+		
+		Rede rede = redeDAO.buscarPeloCodigo(this.redeId);
+		this.estabelecimento.setRede(rede);
 			
-			dao.merge(estabelecimento);
-			
-			if (estabelecimento.getId() == null || estabelecimento.getId() == 0) {
-				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento cadastrado com sucesso.", "Estabecimento cadastrado com sucesso.");
-				this.limpar();		
-			} else {
-				Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento alterado com sucesso.", "Estabecimento alterado com sucesso.");
-				this.setBotao("Atualizar");
-			}			
-		}
+		dao.merge(estabelecimento);
+		
+		if (estabelecimento.getId() == null || estabelecimento.getId() == 0) {
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento cadastrado com sucesso.", "Estabecimento cadastrado com sucesso.");
+			this.limpar();		
+		} else {
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Estabecimento alterado com sucesso.", "Estabecimento alterado com sucesso.");
+			this.setBotao("Atualizar");
+		}			
+	
 	}
 			
 	public List<Grupo> getGrupos() {					
@@ -100,9 +99,7 @@ public class EstabelecimentoController {
 	}
 	
 	public List<Rede> getRedes() {				
-		
-		RedeDAO redeDAO = new RedeDAO();
-		return redeDAO.getRedes();
+		return this.redes;		
 	}
 
 	public Estabelecimento getEstabelecimento() {
@@ -120,5 +117,23 @@ public class EstabelecimentoController {
 	public void setBotao(String botao) {
 		this.botao = botao;
 	}
+
+	public Integer getGrupoId() {
+		return grupoId;
+	}
+
+	public void setGrupoId(Integer grupoId) {
+		this.grupoId = grupoId;
+	}
+
+	public Integer getRedeId() {
+		return redeId;
+	}
+
+	public void setRedeId(Integer redeId) {
+		this.redeId = redeId;
+	}
+	
+	
 		
 }

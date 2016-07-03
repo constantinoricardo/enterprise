@@ -16,6 +16,7 @@ public class PedidoController {
 	private Pedido pedido = new Pedido();
 	private Estabelecimento estabelecimento = new Estabelecimento();
 	private Produto produto = new Produto();
+	private Integer estabelecimentoId;
 	
 	public List<Estabelecimento> getEstabelecimentos() {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();
@@ -54,6 +55,14 @@ public class PedidoController {
 	
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+	
+	public void setEstabelecimentoId(Integer estabelecimentoId) {
+		this.estabelecimentoId = estabelecimentoId;
+	}
+	
+	public Integer getEstabelecimentoId() {
+		return estabelecimentoId;
 	}
 	
 }
