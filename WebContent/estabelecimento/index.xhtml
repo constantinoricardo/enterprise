@@ -67,7 +67,8 @@
 				<h:commandButton value="#{estabelecimentoController.botao}" class="btn btn-default"
 					action="#{estabelecimentoController.salva(estabelecimentoController.estabelecimento)}"></h:commandButton>
 				&nbsp;&nbsp;
-				<h:commandButton value="Limpar" class="btn btn-primary" action="#{estabelecimentoController.limpar()}"></h:commandButton>
+				<h:commandButton value="Limpar" class="btn btn-primary" action="#{estabelecimentoController.limpar()}"
+				immediate="true"></h:commandButton>
 			</div>
 		</h:form>
 	</ui:define>

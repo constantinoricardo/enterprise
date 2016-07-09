@@ -24,7 +24,8 @@
 			<h:commandButton value="#{grupoController.botao}" class="btn btn-default"
 				action="#{grupoController.salva(grupoController.grupo)}" />
 			&nbsp;&nbsp;
-			<h:commandButton value="Limpar" class="btn btn-primary" action="#{grupoController.limpar()}"></h:commandButton>
+			<h:commandButton value="Limpar" class="btn btn-primary" action="#{grupoController.limpar()}"
+			immediate="true"></h:commandButton>
 			</div>
 				
 		</h:form>
