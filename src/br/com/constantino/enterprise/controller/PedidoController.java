@@ -3,6 +3,7 @@ package br.com.constantino.enterprise.controller;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import br.com.constantino.enterprise.dao.EstabelecimentoDAO;
 import br.com.constantino.enterprise.dao.ProdutoDAO;
@@ -11,13 +12,15 @@ import br.com.constantino.enterprise.entities.Pedido;
 import br.com.constantino.enterprise.entities.Produto;
 
 @ManagedBean
+@ViewScoped
 public class PedidoController {
 	
 	private Pedido pedido = new Pedido();
 	private Estabelecimento estabelecimento = new Estabelecimento();
 	private Produto produto = new Produto();
-	private Integer estabelecimentoId;
-	
+	private Integer estabelecimentoId;	
+	private Integer[] produtosEscolhidos;	
+
 	public List<Estabelecimento> getEstabelecimentos() {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();
 		return dao.listar();
@@ -30,7 +33,16 @@ public class PedidoController {
 	
 	public void salva(Pedido pedido) {
 		
-		System.out.println(pedido.getProduto());
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
+		
+		System.out.println("Produtos Escolhidos " + produtosEscolhidos.toString());
+//		System.out.println("Produtos Escolhidos " + this.produtosEscolhidos.toString());
+				
+				
+		
+		System.out.println("Estabelecimento " + this.estabelecimentoId);
+//		System.out.println(pedido.getPrecoTotal());
 	}
 	
 	public Pedido getPedido() {
@@ -63,6 +75,14 @@ public class PedidoController {
 	
 	public Integer getEstabelecimentoId() {
 		return estabelecimentoId;
+	}
+	
+	public Integer[] getProdutosEscolhidos() {
+		return produtosEscolhidos;
+	}
+
+	public void setProdutosEscolhidos(Integer[] produtosEscolhidos) {
+		this.produtosEscolhidos = produtosEscolhidos;
 	}
 	
 }

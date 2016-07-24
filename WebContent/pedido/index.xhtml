@@ -32,7 +32,7 @@
 
 			<div class="table-responsive">
 				<h:dataTable class="table table-striped"
-					value="#{produtoController.produtos}" var="produto">
+					value="#{pedidoController.produtos}" var="produto">
 
 					<h:column>
 						<f:facet name="header">ID</f:facet>
@@ -50,8 +50,8 @@
 					</h:column>
 
 					<h:column>
-						<f:facet name="header">Selecionar</f:facet>
-						<h:selectManyCheckbox value="#{produtoController.produtos}">
+						<f:facet name="header">Selecionar</f:facet>						
+						<h:selectManyCheckbox value="#{pedidoController.produtosEscolhidos}" id="produtosEscolhidos">
 							<f:selectItem itemValue="#{produto.id}" itemLabel=""></f:selectItem>
 						</h:selectManyCheckbox>
 					</h:column>

@@ -14,7 +14,7 @@ public class ProdutoController {
 	
 	private Produto produto = new Produto();
 	private String botao = "Salvar";
-	private List<Produto> produtos;
+//	private List<Produto> produtos;
 	
 	public void salva(Produto produto) {
 		
