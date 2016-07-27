@@ -1,5 +1,6 @@
 package br.com.constantino.enterprise.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -19,13 +20,13 @@ public class PedidoController {
 	private Estabelecimento estabelecimento = new Estabelecimento();
 	private Produto produto = new Produto();
 	private Integer estabelecimentoId;	
-	private Integer[] produtosEscolhidos;	
+	private List produtosEscolhidos = new ArrayList();	
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();
 		return dao.listar();
-	}
-	
+	}		
+
 	public List<Produto> getProdutos() {
 		ProdutoDAO dao = new ProdutoDAO();
 		return dao.getProdutos();
@@ -36,13 +37,10 @@ public class PedidoController {
 		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
 		Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
 		
-		System.out.println("Produtos Escolhidos " + produtosEscolhidos.toString());
-//		System.out.println("Produtos Escolhidos " + this.produtosEscolhidos.toString());
-				
-				
+		System.out.println("Produtos Escolhidos " + produtosEscolhidos.get(0));
+		System.out.println("Quantidades de produtos escolhidos " + produtosEscolhidos.size());								
 		
 		System.out.println("Estabelecimento " + this.estabelecimentoId);
-//		System.out.println(pedido.getPrecoTotal());
 	}
 	
 	public Pedido getPedido() {
@@ -77,11 +75,11 @@ public class PedidoController {
 		return estabelecimentoId;
 	}
 	
-	public Integer[] getProdutosEscolhidos() {
+	public List getProdutosEscolhidos() {
 		return produtosEscolhidos;
 	}
 
-	public void setProdutosEscolhidos(Integer[] produtosEscolhidos) {
+	public void setProdutosEscolhidos(List produtosEscolhidos) {
 		this.produtosEscolhidos = produtosEscolhidos;
 	}
 	
