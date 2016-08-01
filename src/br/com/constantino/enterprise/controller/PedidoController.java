@@ -20,7 +20,7 @@ public class PedidoController {
 	private Estabelecimento estabelecimento = new Estabelecimento();
 	private Produto produto = new Produto();
 	private Integer estabelecimentoId;	
-	private List<Integer> produtosEscolhidos = new ArrayList<>();		
+	private List<String> produtosEscolhidos = new ArrayList<>();		
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();
@@ -37,7 +37,7 @@ public class PedidoController {
 		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
 		Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
 		
-		for (Integer lista : produtosEscolhidos) {
+		for (String lista : produtosEscolhidos) {
 			System.out.println(lista);
 		}
 		
@@ -76,12 +76,12 @@ public class PedidoController {
 		return estabelecimentoId;
 	}
 	
-	public List<Integer> getProdutosEscolhidos() {
+	public List<String> getProdutosEscolhidos() {
 		return produtosEscolhidos;
 	}
 
-	public void setProdutosEscolhidos(List<Integer> produtosEscolhidos) {
-		this.produtosEscolhidos = produtosEscolhidos;
+	public void setProdutosEscolhidos(List<String> produtosEscolhidos) {
+		this.produtosEscolhidos.addAll(produtosEscolhidos);
 	}
 	
 }
