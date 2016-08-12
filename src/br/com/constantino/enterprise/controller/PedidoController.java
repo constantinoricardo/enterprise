@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.constantino.enterprise.dao.EstabelecimentoDAO;
+import br.com.constantino.enterprise.dao.PedidoDAO;
 import br.com.constantino.enterprise.dao.ProdutoDAO;
 import br.com.constantino.enterprise.entities.Estabelecimento;
 import br.com.constantino.enterprise.entities.Pedido;
@@ -33,13 +34,20 @@ public class PedidoController {
 	}
 	
 	public void salva(Pedido pedido) {
+		PedidoDAO pedidoDAO = new PedidoDAO();
 		
 		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
 		Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
+		this.pedido.setEstabelecimento(estabelecimento);
 		
-		for (String lista : produtosEscolhidos) {
-			System.out.println(lista);
+		for (String produtoId : produtosEscolhidos) {
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			Integer id = Integer.parseInt(produtoId);
+			List<Produto> produto = produtoDAO.buscarListaProdutoPorId(id);
+			this.pedido.setProduto(produto);
 		}
+		
+		pedidoDAO.merge(pedido);
 		
 		System.out.println("Estabelecimento " + this.estabelecimentoId);
 	}

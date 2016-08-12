@@ -25,6 +25,13 @@ public class ProdutoDAO extends AbstractDAO {
 	public Produto buscarProdutoPorId(Integer id) {
 		return em.find(Produto.class, id);
 	}
+	
+	public List<Produto> buscarListaProdutoPorId(Integer id) {
+		String jpql = "select p from Produto p where p.id = :id";
+		Query query = em.createQuery(jpql, Produto.class);
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
 
 	public List<Produto> getProdutos() {
 		String jpql = "select p from Produto p";
