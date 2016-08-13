@@ -1,5 +1,6 @@
 package br.com.constantino.enterprise.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -26,11 +27,14 @@ public class ProdutoDAO extends AbstractDAO {
 		return em.find(Produto.class, id);
 	}
 	
-	public List<Produto> buscarListaProdutoPorId(Integer id) {
-		String jpql = "select p from Produto p where p.id = :id";
+	public List<Produto> buscarListaProdutoPorId(ArrayList<Integer> lista) {
+		
+		String jpql = "select p from Produto p where p.id IN (:ids)";
 		Query query = em.createQuery(jpql, Produto.class);
-		query.setParameter("id", id);
+		query.setParameter("ids", lista);
+		
 		return query.getResultList();
+		
 	}
 
 	public List<Produto> getProdutos() {

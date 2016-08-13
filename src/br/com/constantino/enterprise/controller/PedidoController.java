@@ -25,7 +25,7 @@ public class PedidoController {
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();
-		return dao.listar();
+		return dao.listar();		
 	}		
 
 	public List<Produto> getProdutos() {
@@ -34,22 +34,27 @@ public class PedidoController {
 	}
 	
 	public void salva(Pedido pedido) {
-		PedidoDAO pedidoDAO = new PedidoDAO();
 		
+		ArrayList<Integer> listaId = new ArrayList<Integer>();
+		
+		PedidoDAO pedidoDAO = new PedidoDAO();		
+		ProdutoDAO produtoDAO = new ProdutoDAO();				
 		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
 		Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
 		this.pedido.setEstabelecimento(estabelecimento);
 		
-		for (String produtoId : produtosEscolhidos) {
-			ProdutoDAO produtoDAO = new ProdutoDAO();
+		
+		for (String produtoId : produtosEscolhidos) {			
 			Integer id = Integer.parseInt(produtoId);
-			List<Produto> produto = produtoDAO.buscarListaProdutoPorId(id);
-			this.pedido.setProduto(produto);
-		}
+			listaId.add(id);
+		}			
 		
-		pedidoDAO.merge(pedido);
+		List<Produto> produto = produtoDAO.buscarListaProdutoPorId(listaId);
+		this.pedido.setProduto(produto);
 		
-		System.out.println("Estabelecimento " + this.estabelecimentoId);
+		pedidoDAO.merge(this.pedido);
+						
 	}
 	
 	public Pedido getPedido() {
