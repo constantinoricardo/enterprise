@@ -2,9 +2,9 @@ package br.com.constantino.enterprise.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -14,6 +14,7 @@ import br.com.constantino.enterprise.dao.ProdutoDAO;
 import br.com.constantino.enterprise.entities.Estabelecimento;
 import br.com.constantino.enterprise.entities.Pedido;
 import br.com.constantino.enterprise.entities.Produto;
+import br.com.constantino.enterprise.utils.Messages;
 
 @ManagedBean
 @ViewScoped
@@ -39,30 +40,46 @@ public class PedidoController {
 		
 		ArrayList<Integer> listaId = new ArrayList<Integer>();
 		
-		PedidoDAO pedidoDAO = new PedidoDAO();		
-		ProdutoDAO produtoDAO = new ProdutoDAO();				
-		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
-		
-		Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
-		this.pedido.setEstabelecimento(estabelecimento);
-		
 		for (String produtoId : produtosEscolhidos) {			
 			Integer id = Integer.parseInt(produtoId);
 			listaId.add(id);
 		}			
 		
-		List<Produto> produto = produtoDAO.buscarListaProdutoPorId(listaId);
-		this.pedido.setProduto(produto);
+		if (listaId.size() > 0) {
 		
-		Double precoTotal = produtoDAO.totalPrecoProduto(listaId);
-		this.pedido.setPrecoTotal(precoTotal);
+			PedidoDAO pedidoDAO = new PedidoDAO();		
+			ProdutoDAO produtoDAO = new ProdutoDAO();				
+			EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();			
+			
+			Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
+			this.pedido.setEstabelecimento(estabelecimento);			
 		
-		Calendar calendar = Calendar.getInstance();
-		
-		this.pedido.setDataPedido(calendar);
-		
-		pedidoDAO.merge(this.pedido);
+			List<Produto> produto = produtoDAO.buscarListaProdutoPorId(listaId);
+			this.pedido.setProduto(produto);
+			
+			Double precoTotal = produtoDAO.totalPrecoProduto(listaId);
+			this.pedido.setPrecoTotal(precoTotal);
+			
+			Calendar calendar = Calendar.getInstance();
+			
+			this.pedido.setDataPedido(calendar);
+			
+			pedidoDAO.merge(this.pedido);
+			
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Pedido realizado com sucesso.", "Pedido realizado com sucesso.");
+			this.limpar();
+			
+		} else {
+			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Escolha ao menos 1 produto!", "Escolha ao menos 1 produto!");
+		}
 						
+	}
+	
+	public String limpar() {
+		
+		this.produtosEscolhidos = null;
+		this.estabelecimentoId = null;
+		return "index.xhtml";
 	}
 	
 	public Pedido getPedido() {

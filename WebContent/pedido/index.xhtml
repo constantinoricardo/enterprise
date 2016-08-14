@@ -15,11 +15,11 @@
 
 	<ui:define name="container">
 		<h:messages styleClass="alert alert-success" />
-
+				
 		<h:form>
 			<div class="form-group">
 				<h:outputLabel value="Estabelecimento" for="estabelecimento" />
-				<h:selectOneMenu class="form-control"
+				<h:selectOneMenu class="form-control" required="true" requiredMessage="Por favor, escolha um estabelecimento!"
 					value="#{pedidoController.estabelecimentoId}"
 					id="renderEstabelecimento" name="estabelecimento">
 					<f:selectItem itemValue="" itemLabel="--Selecione--"
@@ -53,7 +53,7 @@
 						<f:facet name="header">Selecionar</f:facet>						
 						<h:selectManyCheckbox value="#{pedidoController.produtosEscolhidos}" id="produtosEscolhidos">
 							<f:selectItem itemValue="#{produto.id}" itemLabel=""></f:selectItem>
-						</h:selectManyCheckbox>
+						</h:selectManyCheckbox>						
 					</h:column>
 				</h:dataTable>
 			</div>
