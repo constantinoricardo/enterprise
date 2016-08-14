@@ -27,6 +27,18 @@ public class ProdutoDAO extends AbstractDAO {
 		return em.find(Produto.class, id);
 	}
 	
+	public Double totalPrecoProduto(ArrayList<Integer> lista) {
+		
+		String sql = "select sum(preco) as total from produto where id IN (:ids)";
+		Query query = em.createNativeQuery(sql);
+		query.setParameter("ids", lista);
+		
+		Double preco = (Double) query.getSingleResult();
+		Double total = (double) Math.floor(preco);
+		
+		return total;
+	}
+	
 	public List<Produto> buscarListaProdutoPorId(ArrayList<Integer> lista) {
 		
 		String jpql = "select p from Produto p where p.id IN (:ids)";

@@ -29,7 +29,7 @@ public class Pedido {
 	private Calendar dataPedido;
 	
 	@Column(name="preco_total")
-	private Float precoTotal;
+	private Double precoTotal;
 	
 	@ManyToOne
 	@JoinColumns({
@@ -56,11 +56,11 @@ public class Pedido {
 		this.dataPedido = dataPedido;
 	}
 	
-	public Float getPrecoTotal() {
+	public Double getPrecoTotal() {
 		return precoTotal;
 	}
 	
-	public void setPrecoTotal(Float precoTotal) {
+	public void setPrecoTotal(Double precoTotal) {
 		this.precoTotal = precoTotal;
 	}
 

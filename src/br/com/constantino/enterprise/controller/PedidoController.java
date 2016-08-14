@@ -1,6 +1,8 @@
 package br.com.constantino.enterprise.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -44,7 +46,6 @@ public class PedidoController {
 		Estabelecimento estabelecimento = estabelecimentoDAO.buscarPorId(this.estabelecimentoId);
 		this.pedido.setEstabelecimento(estabelecimento);
 		
-		
 		for (String produtoId : produtosEscolhidos) {			
 			Integer id = Integer.parseInt(produtoId);
 			listaId.add(id);
@@ -52,6 +53,13 @@ public class PedidoController {
 		
 		List<Produto> produto = produtoDAO.buscarListaProdutoPorId(listaId);
 		this.pedido.setProduto(produto);
+		
+		Double precoTotal = produtoDAO.totalPrecoProduto(listaId);
+		this.pedido.setPrecoTotal(precoTotal);
+		
+		Calendar calendar = Calendar.getInstance();
+		
+		this.pedido.setDataPedido(calendar);
 		
 		pedidoDAO.merge(this.pedido);
 						
