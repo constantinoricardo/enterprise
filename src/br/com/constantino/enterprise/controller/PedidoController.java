@@ -8,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.model.chart.PieChartModel;
+
 import br.com.constantino.enterprise.dao.EstabelecimentoDAO;
 import br.com.constantino.enterprise.dao.PedidoDAO;
 import br.com.constantino.enterprise.dao.ProdutoDAO;
@@ -24,7 +26,8 @@ public class PedidoController {
 	private Estabelecimento estabelecimento = new Estabelecimento();
 	private Produto produto = new Produto();
 	private Integer estabelecimentoId;	
-	private List<String> produtosEscolhidos = new ArrayList<>();		
+	private List<String> produtosEscolhidos = new ArrayList<>();	
+	private PieChartModel pie;
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();
@@ -75,6 +78,16 @@ public class PedidoController {
 						
 	}
 	
+	public PieChartModel grafico() {
+		PedidoDAO dao = new PedidoDAO();
+		
+		List<Object[]> listagem = dao.retornarEstabelecimentosPedidos();
+		
+		
+		
+		return null;
+	}
+	
 	public String limpar() {
 		
 		this.produtosEscolhidos = null;
@@ -120,6 +133,14 @@ public class PedidoController {
 
 	public void setProdutosEscolhidos(List<String> produtosEscolhidos) {
 		this.produtosEscolhidos.addAll(produtosEscolhidos);
+	}
+	
+	public void setPie(PieChartModel pie) {
+		this.pie = pie;
+	}
+	
+	public PieChartModel getPie() {
+		return pie;
 	}
 	
 }
