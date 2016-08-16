@@ -79,7 +79,7 @@ public class Test {
 		
 		for (Object[] lista : listagem) {			
 			System.out.println("EC " + lista[0]);
-			System.out.println("Razão Social " + lista[1]);
+			System.out.println("Razao Social " + lista[1]);
 			System.out.println("Quantidade " + lista[2]);
 			
 		}

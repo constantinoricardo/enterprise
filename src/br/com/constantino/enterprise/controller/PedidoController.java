@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.primefaces.model.chart.PieChartModel;
 
@@ -27,7 +28,28 @@ public class PedidoController {
 	private Produto produto = new Produto();
 	private Integer estabelecimentoId;	
 	private List<String> produtosEscolhidos = new ArrayList<>();	
-	private PieChartModel pie;
+	private PieChartModel grafico;
+	
+	public PedidoController() {
+		PedidoDAO dao = new PedidoDAO();
+		
+		List<Object[]> listagem = dao.retornarEstabelecimentosPedidos();
+		this.grafico = new PieChartModel();
+		
+//		for (Object[] lista: listagem) {
+//			String razaoSocial = (String) lista[1];
+//			Integer quantidade = (Integer) lista[0];
+//			this.pie.set(razaoSocial, quantidade);
+//		}
+		
+		this.grafico.set("Ricardo", 12);
+		this.grafico.set("Camila", 12);
+		this.grafico.set("Constanzo", 1);
+		
+		
+		this.grafico.setTitle("Quantidade");
+		this.grafico.setLegendPosition("w");
+	}
 
 	public List<Estabelecimento> getEstabelecimentos() {
 		EstabelecimentoDAO dao = new EstabelecimentoDAO();
@@ -63,8 +85,7 @@ public class PedidoController {
 			Double precoTotal = produtoDAO.totalPrecoProduto(listaId);
 			this.pedido.setPrecoTotal(precoTotal);
 			
-			Calendar calendar = Calendar.getInstance();
-			
+			Calendar calendar = Calendar.getInstance();			
 			this.pedido.setDataPedido(calendar);
 			
 			pedidoDAO.merge(this.pedido);
@@ -76,18 +97,8 @@ public class PedidoController {
 			Messages.getMessagem(FacesMessage.SEVERITY_INFO, "Escolha ao menos 1 produto!", "Escolha ao menos 1 produto!");
 		}
 						
-	}
-	
-	public PieChartModel grafico() {
-		PedidoDAO dao = new PedidoDAO();
-		
-		List<Object[]> listagem = dao.retornarEstabelecimentosPedidos();
-		
-		
-		
-		return null;
-	}
-	
+	}		
+
 	public String limpar() {
 		
 		this.produtosEscolhidos = null;
@@ -135,12 +146,12 @@ public class PedidoController {
 		this.produtosEscolhidos.addAll(produtosEscolhidos);
 	}
 	
-	public void setPie(PieChartModel pie) {
-		this.pie = pie;
+	public void setGrafico(PieChartModel grafico) {
+		this.grafico = grafico;
 	}
 	
-	public PieChartModel getPie() {
-		return pie;
+	public PieChartModel getGrafico() {
+		return grafico;
 	}
 	
 }
