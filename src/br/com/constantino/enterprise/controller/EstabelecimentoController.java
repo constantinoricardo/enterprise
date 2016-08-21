@@ -7,9 +7,11 @@ import javax.faces.bean.ManagedBean;
 
 import br.com.constantino.enterprise.dao.EstabelecimentoDAO;
 import br.com.constantino.enterprise.dao.GrupoDAO;
+import br.com.constantino.enterprise.dao.PedidoDAO;
 import br.com.constantino.enterprise.dao.RedeDAO;
 import br.com.constantino.enterprise.entities.Estabelecimento;
 import br.com.constantino.enterprise.entities.Grupo;
+import br.com.constantino.enterprise.entities.Pedido;
 import br.com.constantino.enterprise.entities.Rede;
 import br.com.constantino.enterprise.utils.Messages;
 

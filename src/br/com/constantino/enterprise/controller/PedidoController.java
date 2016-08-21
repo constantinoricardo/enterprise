@@ -36,16 +36,11 @@ public class PedidoController {
 		List<Object[]> listagem = dao.retornarEstabelecimentosPedidos();
 		this.grafico = new PieChartModel();
 		
-//		for (Object[] lista: listagem) {
-//			String razaoSocial = (String) lista[1];
-//			Integer quantidade = (Integer) lista[0];
-//			this.pie.set(razaoSocial, quantidade);
-//		}
-		
-		this.grafico.set("Ricardo", 12);
-		this.grafico.set("Camila", 12);
-		this.grafico.set("Constanzo", 1);
-		
+		for (Object[] lista: listagem) {
+			String razaoSocial = (String) lista[1];
+			Integer quantidade = (Integer) lista[0];
+			this.grafico.set(razaoSocial, quantidade);
+		}
 		
 		this.grafico.setTitle("Quantidade");
 		this.grafico.setLegendPosition("w");
