@@ -7,7 +7,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.primefaces.model.chart.PieChartModel;
 
@@ -29,6 +28,7 @@ public class PedidoController {
 	private Integer estabelecimentoId;	
 	private List<String> produtosEscolhidos = new ArrayList<>();	
 	private PieChartModel grafico;
+	private PieChartModel graficoPrecoTotal;
 	
 	public PedidoController() {
 		PedidoDAO dao = new PedidoDAO();
@@ -44,6 +44,12 @@ public class PedidoController {
 		
 		this.grafico.setTitle("Quantidade");
 		this.grafico.setLegendPosition("w");
+		
+	}
+	
+	public List<Object[]> getListaTotalPreco() {		
+		PedidoDAO dao = new PedidoDAO();
+		return dao.retornarValoresPedidosEstabelecimentos();
 	}
 
 	public List<Estabelecimento> getEstabelecimentos() {
@@ -147,6 +153,14 @@ public class PedidoController {
 	
 	public PieChartModel getGrafico() {
 		return grafico;
+	}
+	
+	public void setGraficoPrecoTotal(PieChartModel graficoPrecoTotal) {
+		this.graficoPrecoTotal = graficoPrecoTotal;
+	}
+	
+	public PieChartModel getGraficoPrecoTotal() {
+		return graficoPrecoTotal;
 	}
 	
 }

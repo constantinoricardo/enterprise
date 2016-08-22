@@ -19,6 +19,27 @@
 		    <p:chart type="pie" model="#{pedidoController.grafico}" />
 		</h:panelGrid>
 	
+		<h:dataTable class="table table-striped"
+			value="#{pedidoController.listaTotalPreco}" var="lista">
+		
+			<h:column>
+				<f:facet name="header">ID Estabelecimento</f:facet>
+				#{lista[0]}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Razão Social</f:facet>
+				#{lista[1]}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Preço Total</f:facet>
+				<h:outputText id="valor" value="#{lista[2]}">					
+					<!-- <f:converterNumber currencyCode="R$" type="currency"  />  -->
+				</h:outputText>				
+			</h:column>
+		</h:dataTable>
+		
 	</ui:define>
 	
 </ui:composition>
